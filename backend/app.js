@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 app.use('/api/books', booksRoutes);
 app.use('/api/auth', userRoutes);
 
+// autorise à acceder aux images depuis le front
 app.use('/images', express.static(path.join(__dirname, 'images')));
   
 //export de l'app

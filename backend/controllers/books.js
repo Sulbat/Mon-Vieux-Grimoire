@@ -14,7 +14,7 @@ exports.createBook = (req, res, next) => {
   const book = new Book({
       ...bookObject,
       userId: req.auth.userId,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/resized_${req.file.filename}`,
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
       averageRating: bookObject.ratings[0].grade
   });
   // Enregistrement dans la base de données
