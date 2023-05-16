@@ -1,4 +1,8 @@
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const sharp = require('sharp');
+
 
 const MIME_TYPES = {
   'image/jpg': 'jpg',
