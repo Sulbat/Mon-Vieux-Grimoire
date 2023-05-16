@@ -2,6 +2,7 @@
 
 const Book = require('../models/Book');
 const fs = require('fs');
+const average = require('../utils/average');
 
 exports.createBook = (req, res, next) => {
   // Stockage de la requête sous forme de JSON dans une constante (requête sous la forme form-data à l'origine)
@@ -14,7 +15,7 @@ exports.createBook = (req, res, next) => {
   const book = new Book({
       ...bookObject,
       userId: req.auth.userId,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+      imageUrl: `${req.protocol}://${req.get('host')}/images/resized_${req.file.filename}`,
       averageRating: bookObject.ratings[0].grade
   });
   // Enregistrement dans la base de données
@@ -28,7 +29,7 @@ exports.modifyBook = (req, res, next) => {
   // (ici, nous recevons soit un élément form-data, soit des données JSON, selon si le fichier image a été modifié ou non)
   const bookObject = req.file ? {
       ...JSON.parse(req.body.book),
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
+      imageUrl: `${req.protocol}://${req.get('host')}/images/resized_${req.file.filename}` 
   } : { ...req.body };
 
   // Suppression de _userId auquel on ne peut faire confiance
